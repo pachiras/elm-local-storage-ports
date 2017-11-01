@@ -33,16 +33,25 @@ function register(ports, log) {
   function storageSetItem([key, value]) {
     log('storageSetItem', key, value);
     setLocalStorageItem(key, value);
+
+    log('storageSetItemResponse');
+    ports.storageSetItemResponse.send(null);
   }
 
   function storageRemoveItem(key) {
     log('storageRemoveItem', key);
     window.localStorage.removeItem(key);
+
+    log('storageRemoveItemResponse');
+    ports.storageRemoveItemResponse.send(null);
   }
 
   function storageClear() {
     log('storageClear');
     window.localStorage.clear();
+
+    log('storageClearResponse');
+    ports.storageClearResponse.send(null);
   }
 
   // A Set is a list with only unique values. (No duplication.)
@@ -57,6 +66,9 @@ function register(ports, log) {
     }
 
     setLocalStorageItem(key, list);
+
+    log('storagePushToSetResponse');
+    ports.storagePushToSetResponse.send(null);
   }
 
   function storageRemoveFromSet([key, value]) {
@@ -74,6 +86,9 @@ function register(ports, log) {
     const updatedSet = list.filter(item => jsonValue !== JSON.stringify(item));
 
     setLocalStorageItem(key, updatedSet);
+
+    log('storageRemoveFromSetResponse');
+    ports.storageRemoveFromSetResponse.send(null);
   }
 }
 
