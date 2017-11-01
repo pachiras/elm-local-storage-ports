@@ -5,6 +5,7 @@
   "main": "lib/js/local-storage-ports.js",
   "scripts": {
     "build": "node_modules/babel-cli/bin/babel.js  src/ --out-dir lib/js/",
+    "postinstall": "node_modules/babel-cli/bin/babel.js  src/ --out-dir lib/js/",
     "test": "jest",
     "version": "npm run build"
   },
