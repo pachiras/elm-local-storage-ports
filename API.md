@@ -155,6 +155,25 @@ update msg model =
       )
 ```
 
+### `storageEnumKeys`
+
+> Enumerates Keys in LocalStorage.
+
+**Usage:**
+
+```elm
+import Ports.LocalStorage as LocalStorage
+
+type Msg
+  = ReloadItem
+
+update : Msg -> Model -> (Cmd Msg)
+update msg model =
+  case msg of
+    ReloadItem ->
+        ( model, LocalStorage.storageEnumKeys () )
+```
+
 ## Subscriptions
 
 ### `storageGetItemResponse`
@@ -169,39 +188,126 @@ import Ports.LocalStorage as LocalStorage
 
 type Msg
   = ReceiveStorageGetItem (LocalStorage.Key, LocalStorage.Value)
-  | ReceiveStorageSetItem
-  | ReceiveStorageRemoveItem
-  | ReceiveStorageClear
-  | ReceiveStoragePushToSet
-  | ReceiveStorageRemoveFromSet
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
   LocalStorage.storageGetItemResponse ReceiveStorageGetItem
-  LocalStorage.storageSetItemResponse ReceiveStorageSetItem
-  LocalStorage.storageRemoveItemResponse ReceiveStorageRemoveItem
-  LocalStorage.storageClearResponse ReceiveStorageClear
-  LocalStorage.storagePushToSetResponse ReceiveStoragePushToSet
-  LocalStorage.storageRemoveFromSetResponse ReceiveStorageRemoveFromSet
 ```
 
 ### `storageSetItemResponse`
 
 > This subscription will be in place in order to receive when the `storageSetItem` Cmd is finished.
 
+**Usage:**
+
+```elm
+import Ports.LocalStorage as LocalStorage
+
+type Msg
+  = ReceiveStorageSetItem
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+  LocalStorage.storageSetItemResponse ReceiveStorageSetItem
+```
+
 ### `storageRemoveItemResponse`
 
 > This subscription will be in place in order to receive when the `storageRemoveItem` Cmd is finished.
+
+
+**Usage:**
+
+```elm
+import Ports.LocalStorage as LocalStorage
+
+
+type Msg
+  = ReceiveStorageRemoveItem
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+  LocalStorage.storageRemoveItemResponse ReceiveStorageRemoveItem
+
+```
 
 ### `storageClearResponse`
 
 > This subscription will be in place in order to receive when the `storageClear` Cmd is finished.
 
+
+**Usage:**
+
+```elm
+import Ports.LocalStorage as LocalStorage
+
+
+type Msg
+  = ReceiveStorageClear
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+  LocalStorage.storageClearResponse ReceiveStorageClear
+```
+
 ### `storagePushToSetResponse`
 
 > This subscription will be in place in order to receive when the `storagePushToSet` Cmd is finished.
+
+**Usage:**
+
+```elm
+import Ports.LocalStorage as LocalStorage
+
+
+type Msg
+  = ReceiveStoragePushToSet
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+  LocalStorage.storagePushToSetResponse ReceiveStoragePushToSet
+```
 
 ### `storageRemoveFromSetResponse`
 
 > This subscription will be in place in order to receive when the `storageRemoveFromSet` Cmd is finished.
 
+
+**Usage:**
+
+```elm
+import Ports.LocalStorage as LocalStorage
+
+type Msg
+  = ReceiveStorageRemoveFromSet
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+  LocalStorage.storageRemoveFromSetResponse ReceiveStorageRemoveFromSet
+```
+
+### `storageEnumKeys`
+
+> This subscription must be in place in order to receive anything when the `storageEnumKeys` Cmd is dispatched.
+
+**Usage:**
+
+```elm
+import Ports.LocalStorage as LocalStorage
+
+
+type Msg
+  = ReceiveStorageEnumKeys (List Key)
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+  LocalStorage.storageEnumKeysResponse ReceiveStorageEnumKeys
+
+update : Msg -> Model -> (Cmd Msg)
+update msg model =
+  case msg of
+    ReceiveStorageEnumKeys keys ->
+      ( { model | keys = keys }
+      , updateMyList keys
+      )
+```

@@ -134,7 +134,7 @@ function setLocalStorageItem(key, value) {
 /**
  * Enumerate the keys of localStorage.
  *
- * @return {[*]}      keys The list of keys in localStorage
+ * @return {[*]}    The list of keys in localStorage
  */
 function enumerateLocalStorageKeys() {
   var keys = [];
