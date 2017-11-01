@@ -286,7 +286,7 @@ subscriptions model =
   LocalStorage.storageRemoveFromSetResponse ReceiveStorageRemoveFromSet
 ```
 
-### `storageEnumKeys`
+### `storageEnumKeysResponse`
 
 > This subscription must be in place in order to receive anything when the `storageEnumKeys` Cmd is dispatched.
 
