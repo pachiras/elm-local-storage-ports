@@ -31,6 +31,9 @@ port storagePushToSetResponse : (() -> msg) -> Sub msg
 port storageRemoveFromSetResponse : (() -> msg) -> Sub msg
 
 
+port storageEnumKeysResponse : (List Key -> msg) -> Sub msg
+
+
 {-| Commands (Send to JS)
 -}
 
@@ -59,3 +62,6 @@ port storagePushToSet : ( Key, Value ) -> Cmd msg
 
 
 port storageRemoveFromSet : ( Key, Value ) -> Cmd msg
+
+
+port storageEnumKeys : () -> Cmd msg

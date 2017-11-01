@@ -19,6 +19,7 @@ function register(ports, log) {
   // Not in Storage API
   ports.storagePushToSet.subscribe(storagePushToSet);
   ports.storageRemoveFromSet.subscribe(storageRemoveFromSet);
+  ports.storageEnumKeys.subscribe(storageEnumKeys);
 
   log = log || function() {};
 
@@ -90,6 +91,15 @@ function register(ports, log) {
     log('storageRemoveFromSetResponse');
     ports.storageRemoveFromSetResponse.send(null);
   }
+
+  function storageEnumKeys() {
+    log('storageEnumKeys');
+    const response = enumerateLocalStorageKeys()
+
+    log('storageEnumKeysResponse', response);
+    ports.storageEnumKeysResponse.send(response);
+
+  }
 }
 
 /**
@@ -120,3 +130,17 @@ function setLocalStorageItem(key, value) {
     JSON.stringify(value)
   );
 }
+
+/**
+ * Enumerate the keys of localStorage.
+ *
+ * @return {[*]}      keys The list of keys in localStorage
+ */
+function enumerateLocalStorageKeys() {
+  var keys = [];
+  for (var i = 0; i < window.localStorage.length; ++i) {
+      keys.push(window.localStorage.key(i));
+  }
+  return(keys);
+}
+
