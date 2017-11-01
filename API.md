@@ -168,10 +168,40 @@ import Ports.LocalStorage as LocalStorage
 
 
 type Msg
-  = Receive (LocalStorage.Key, LocalStorage.Value)
-
+  = ReceiveStorageGetItem (LocalStorage.Key, LocalStorage.Value)
+  | ReceiveStorageSetItem
+  | ReceiveStorageRemoveItem
+  | ReceiveStorageClear
+  | ReceiveStoragePushToSet
+  | ReceiveStorageRemoveFromSet
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  LocalStorage.storageGetItemResponse Receive
+  LocalStorage.storageGetItemResponse ReceiveStorageGetItem
+  LocalStorage.storageSetItemResponse ReceiveStorageSetItem
+  LocalStorage.storageRemoveItemResponse ReceiveStorageRemoveItem
+  LocalStorage.storageClearResponse ReceiveStorageClear
+  LocalStorage.storagePushToSetResponse ReceiveStoragePushToSet
+  LocalStorage.storageRemoveFromSetResponse ReceiveStorageRemoveFromSet
 ```
+
+### `storageSetItemResponse`
+
+> This subscription will be in place in order to receive when the `storageSetItem` Cmd is finished.
+
+### `storageRemoveItemResponse`
+
+> This subscription will be in place in order to receive when the `storageRemoveItem` Cmd is finished.
+
+### `storageClearResponse`
+
+> This subscription will be in place in order to receive when the `storageClear` Cmd is finished.
+
+### `storagePushToSetResponse`
+
+> This subscription will be in place in order to receive when the `storagePushToSet` Cmd is finished.
+
+### `storageRemoveFromSetResponse`
+
+> This subscription will be in place in order to receive when the `storageRemoveFromSet` Cmd is finished.
+
