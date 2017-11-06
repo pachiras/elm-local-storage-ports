@@ -40,7 +40,7 @@ function register(ports, log) {
     for (var i=0; i < keys.length; ++i) {
       const response = getLocalStorageItem(keys[i]);
       if (response != null) {
-          kv.push([keys[i], value]);
+          kv.push([keys[i], response]);
       }
     }
     log('storageGetItemsResponse', kv);
