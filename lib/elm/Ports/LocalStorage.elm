@@ -16,7 +16,13 @@ type alias Value =
 port storageGetItemResponse : (( Key, Value ) -> msg) -> Sub msg
 
 
+port storageGetItemsResponse : (List ( Key, Value ) -> msg) -> Sub msg
+
+
 port storageSetItemResponse : (() -> msg) -> Sub msg
+
+
+port storageSetItemsResponse : (() -> msg) -> Sub msg
 
 
 port storageRemoveItemResponse : (() -> msg) -> Sub msg
@@ -45,7 +51,13 @@ port storageEnumKeysResponse : (List Key -> msg) -> Sub msg
 port storageGetItem : Key -> Cmd msg
 
 
+port storageGetItems : List Key -> Cmd msg
+
+
 port storageSetItem : ( Key, Value ) -> Cmd msg
+
+
+port storageSetItems : List ( Key, Value ) -> Cmd msg
 
 
 port storageRemoveItem : Key -> Cmd msg

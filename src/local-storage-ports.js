@@ -12,7 +12,9 @@ module.exports = {
 function register(ports, log) {
   // Mapped to Storage API: https://developer.mozilla.org/en-US/docs/Web/API/Storage
   ports.storageGetItem.subscribe(storageGetItem);
+  ports.storageGetItems.subscribe(storageGetItems);
   ports.storageSetItem.subscribe(storageSetItem);
+  ports.storageSetItems.subscribe(storageSetItems);
   ports.storageRemoveItem.subscribe(storageRemoveItem);
   ports.storageClear.subscribe(storageClear);
 
@@ -31,12 +33,38 @@ function register(ports, log) {
     ports.storageGetItemResponse.send([key, response]);
   }
 
+  function storageGetItems(keys) {
+    log('storageGetItems', keys);
+    const response = getLocalStorageItems(keys);
+
+    var kv = [];
+    for (i=0; i < keys.length; ++i) {
+      const response = getLocalStorageItem(keys[i]);
+      if (response != null) {
+          kv.push([keys[i], value]);
+      }
+    }
+    log('storageGetItemsResponse', kv);
+    ports.storageGetItemsResponse.send(kv);
+  }
+
   function storageSetItem([key, value]) {
     log('storageSetItem', key, value);
     setLocalStorageItem(key, value);
 
     log('storageSetItemResponse');
     ports.storageSetItemResponse.send(null);
+  }
+
+  function storageSetItems(kv) {
+    log('storageSetItem', kv);
+    for (i=0; i < kv.length; ++i) {
+        const kvItem = kv[i];
+        setLocalStorageItem(kvItem[0],kvItem[1]);
+    }
+
+    log('storageSetItemsResponse');
+    ports.storageSetItemsResponse.send(null);
   }
 
   function storageRemoveItem(key) {
