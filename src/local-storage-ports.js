@@ -35,10 +35,9 @@ function register(ports, log) {
 
   function storageGetItems(keys) {
     log('storageGetItems', keys);
-    const response = getLocalStorageItems(keys);
 
     var kv = [];
-    for (i=0; i < keys.length; ++i) {
+    for (var i=0; i < keys.length; ++i) {
       const response = getLocalStorageItem(keys[i]);
       if (response != null) {
           kv.push([keys[i], value]);
@@ -58,7 +57,7 @@ function register(ports, log) {
 
   function storageSetItems(kv) {
     log('storageSetItem', kv);
-    for (i=0; i < kv.length; ++i) {
+    for (var i=0; i < kv.length; ++i) {
         const kvItem = kv[i];
         setLocalStorageItem(kvItem[0],kvItem[1]);
     }
