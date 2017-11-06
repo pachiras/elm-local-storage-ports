@@ -208,7 +208,7 @@ type Msg
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  LocalStorage.storageSetItemResponse ReceiveStorageSetItem
+  LocalStorage.storageSetItemResponse (always ReceiveStorageSetItem)
 ```
 
 ### `storageRemoveItemResponse`
@@ -227,7 +227,7 @@ type Msg
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  LocalStorage.storageRemoveItemResponse ReceiveStorageRemoveItem
+  LocalStorage.storageRemoveItemResponse (always ReceiveStorageRemoveItem)
 
 ```
 
@@ -247,7 +247,7 @@ type Msg
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  LocalStorage.storageClearResponse ReceiveStorageClear
+  LocalStorage.storageClearResponse (always ReceiveStorageClear)
 ```
 
 ### `storagePushToSetResponse`
@@ -265,7 +265,7 @@ type Msg
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  LocalStorage.storagePushToSetResponse ReceiveStoragePushToSet
+  LocalStorage.storagePushToSetResponse (always ReceiveStoragePushToSet)
 ```
 
 ### `storageRemoveFromSetResponse`
@@ -283,7 +283,7 @@ type Msg
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  LocalStorage.storageRemoveFromSetResponse ReceiveStorageRemoveFromSet
+  LocalStorage.storageRemoveFromSetResponse (always ReceiveStorageRemoveFromSet)
 ```
 
 ### `storageEnumKeysResponse`
